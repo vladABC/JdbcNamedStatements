@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+mainClassName = "Application"
+
+jar {
+    baseName = 'JdbcNamedStatements'
+    version '1.0.0'
+
+    manifest {
+        attributes "Implementation-Title": "JdbcNamedStatements"
+        attributes "Implementation-ProcessVersion": version
+    }
+
+    from("${rootProject.projectDir}") {
+        include "UNLICENSE"
+        into "META-INF"
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+
+    testCompile("org.slf4j:jcl-over-slf4j:1.7.16")
+    testCompile("ch.qos.logback:logback-classic:1.1.5")
+
+    testCompile("org.postgresql:postgresql:9.4.1207.jre7")
+    testCompile("com.oracle:ojdbc6:11.2.0.4")
+
+    testCompile("junit:junit:4.12")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
